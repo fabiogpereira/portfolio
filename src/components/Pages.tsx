@@ -13,19 +13,19 @@ import { Architecture } from "./demos/Architecture";
 import { Contact, EspacesProject, ErpProject, Foundations, Hero, How, Journey, Others, Stats } from "./Sections";
 import { ph, rich } from "./ph";
 
-// Domínio final ainda não definido: na Vercel usa o de produção do projeto.
-const SITE = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : "http://localhost:3000";
+// Origem do site (SITE_URL no build do GitHub Pages); os caminhos levam o prefixo do site (B).
+const SITE = process.env.SITE_URL
+  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
 
 const prefix = (d: Dict) => (d.nav.home === "/" ? "" : d.nav.home);
+const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export function homeMetadata(d: Dict): Metadata {
   return {
     metadataBase: new URL(SITE),
     title: d.meta.title,
     description: d.meta.description,
-    alternates: { canonical: d.nav.home, languages: { "pt-BR": "/", en: "/en" } },
+    alternates: { canonical: `${B}${d.nav.home}`, languages: { "pt-BR": `${B}/`, en: `${B}/en` } },
     openGraph: { title: d.meta.title, description: d.meta.description, type: "website", locale: d.lang === "pt" ? "pt_BR" : "en_US" },
   };
 }
@@ -36,7 +36,7 @@ export function caseMetadata(d: Dict, slug: "espaces" | "erp" | "notas" | "dados
     metadataBase: new URL(SITE),
     title: `${c.title} · Fábio Pereira`,
     description: c.lead,
-    alternates: { canonical: `${prefix(d)}/cases/${slug}`, languages: { "pt-BR": `/cases/${slug}`, en: `/en/cases/${slug}` } },
+    alternates: { canonical: `${B}${prefix(d)}/cases/${slug}`, languages: { "pt-BR": `${B}/cases/${slug}`, en: `${B}/en/cases/${slug}` } },
   };
 }
 

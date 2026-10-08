@@ -9,6 +9,7 @@ import { Poker } from "./Poker";
 import { Particles } from "./demos/Particles";
 import { CopyEmail } from "./CopyEmail";
 import { ph, rich } from "./ph";
+import { asset } from "@/lib/asset";
 import photo from "../../public/fabio.jpg";
 
 export function Hero({ d }: { d: Dict }) {
@@ -142,7 +143,7 @@ export function Others({ d }: { d: Dict }) {
             <figure key={r.label} className="reel" data-i={i}>
               <div className="reel-shot" style={r.ratio ? { aspectRatio: r.ratio } : undefined}>
                 {r.photo ? (
-                  <Image src={r.photo} alt={r.label} fill sizes="(max-width: 900px) 45vw, 22vw" style={{ objectFit: "cover" }} />
+                  <Image src={asset(r.photo)} alt={r.label} fill sizes="(max-width: 900px) 45vw, 22vw" style={{ objectFit: "cover" }} />
                 ) : (
                   <div className="reel-ph"><span className="mono">{ph(r.hint)}</span></div>
                 )}
@@ -221,11 +222,11 @@ export function Foundations({ d }: { d: Dict }) {
           {li.items.map((it, i) => (
             <article key={it.title} className="life-card" data-i={i} data-light={it.light || undefined}>
               {it.photo && it.framed ? (
-                <div className="life-framed"><div className="life-framed-img"><Image src={it.photo} alt={it.title} fill sizes="(max-width: 900px) 90vw, 30vw" style={{ objectFit: "cover" }} /></div></div>
+                <div className="life-framed"><div className="life-framed-img"><Image src={asset(it.photo)} alt={it.title} fill sizes="(max-width: 900px) 90vw, 30vw" style={{ objectFit: "cover" }} /></div></div>
               ) : it.photo && it.screen ? (
-                <div className="life-screen"><div className="life-phone"><Image src={it.photo} alt={it.title} fill sizes="260px" className="life-photo" style={{ objectPosition: "50% 4%" }} /></div></div>
+                <div className="life-screen"><div className="life-phone"><Image src={asset(it.photo)} alt={it.title} fill sizes="260px" className="life-photo" style={{ objectPosition: "50% 4%" }} /></div></div>
               ) : it.photo ? (
-                <Image src={it.photo} alt={it.caption ? `${it.title} · ${it.caption}` : it.title} fill sizes="(max-width: 900px) 90vw, 30vw" className="life-photo" style={{ objectPosition: it.photoPos }} />
+                <Image src={asset(it.photo)} alt={it.caption ? `${it.title} · ${it.caption}` : it.title} fill sizes="(max-width: 900px) 90vw, 30vw" className="life-photo" style={{ objectPosition: it.photoPos }} />
               ) : it.chart ? (
                 <div className="life-chart"><Poker /></div>
               ) : (
